@@ -1,5 +1,9 @@
 require "adequack/version"
+require "adequack/core"
+
 
 module Adequack
-  # Your code goes here...
+  def self.check_implementation(duck, interface)
+    Core.implements duck, interface
+  end
 end

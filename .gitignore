@@ -4,6 +4,7 @@
 .config
 .yardoc
 .ruby-version
+.DS_Store
 *.sublime-*
 Gemfile.lock
 InstalledFiles
