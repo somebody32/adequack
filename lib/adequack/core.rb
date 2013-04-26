@@ -1,8 +1,6 @@
 require 'pry'
 
 module Adequack
-  InterfaceImplementationError = Class.new(::StandardError)
-
   class Core
 
     def self.implements(object, interface)
@@ -22,7 +20,6 @@ module Adequack
     end
 
     def check_method_implementation(methods, instance = false)
-      #binding.pry
       methods.each do |method|
         if instance
           name = method
@@ -32,7 +29,8 @@ module Adequack
           defined = duck.respond_to?(method)
         end
 
-        raise InterfaceImplementationError, "object does not respond to #{name} method" unless defined
+        raise InterfaceImplementationError,
+          "object does not respond to #{name} method" unless defined
       end
     end
 

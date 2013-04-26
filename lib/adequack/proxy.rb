@@ -1,42 +1,86 @@
-class Proxy
-  instance_methods.each { |m| undef_method m unless m =~ /(^__|^send$|^object_id$)/ }
+module Adequack
+  class Proxy
 
-  def initialize(target, interface)
-    self.target = target
-    self.interface = interface
-  end
+    def initialize(target, interface)
+      self.target = target
+      self.interface = interface
+    end
 
-  private
+    def stub(message_or_hash, opts = {}, &block)
+      methods =
+        Hash === message_or_hash ? message_or_hash.keys : [message_or_hash]
 
-  attr_accessor :target, :interface
+      methods.each { |m| check_method_existence m }
 
-  def method_missing(name, *args, &block)
-    # puts method_in_interface? name
-    check_interface_signature(name, args)
-    target.send(name, *args, &block)
-  end
+      target.stub(message_or_hash, opts, &block)
+    end
 
-  def check_interface_signature(name, args)
-    if method_in_interface?(name)
+    alias_method :stub!, :stub
+
+    def stub_chain(*chain, &blk)
+      method =
+        String === chain.first ? chain.first.split(".").first : chain.first
+
+      check_method_existence method
+
+      target.stub_chain(*chain, &blk)
+    end
+
+    def should_receive(message, opts = {}, &block)
+      check_method_existence message
+
+      target.should_receive(message, opts, &block)
+    end
+
+    private
+
+    attr_accessor :target, :interface
+
+    def method_missing(name, *args, &block)
+      check_interface_implementation name, args
+      target.send name, *args, &block
+    end
+
+    def check_interface_implementation(name, args)
+      check_interface_signature(name, args) if method_in_interface?(name)
+    end
+
+    def check_interface_signature(name, args)
       target_method = duck_type_methods.select { |m| m.name == name }.first
       req_m = target_method.parameters.select { |m| m.first == :req }
 
-      raise "definitions of method '#{name}' differ in parameters accepted." if args.size < req_m.size
+      if args.size < req_m.size
+        raise InterfaceImplementationError,
+          "definition of method '#{name}' differs in parameters accepted."
+      end
 
       unless target_method.parameters.any? { |m| m.first == :rest }
         opt_m = target_method.parameters.select { |m| m.first == :opt }
-        raise "definitions of method '#{name}' differ in parameters accepted." if args.size > (req_m.size + opt_m.size)
+
+        if args.size > (req_m.size + opt_m.size)
+          raise InterfaceImplementationError,
+            "definition of method '#{name}' differs in parameters accepted."
+        end
+      end
+    end
+
+    def check_method_existence(method)
+      unless method_in_interface? method
+        raise InterfaceImplementationError,
+          "trying to stub nonexistent method"
+      end
+    end
+
+    def method_in_interface?(method)
+      duck_type_methods.map(&:name).include? method.to_sym
+    end
+
+    def duck_type_methods
+      @duck_type_methods ||= (interface.instance_methods - Object.methods)
+      @duck_type_methods.map do |method_name|
+        interface.public_instance_method(method_name)
       end
     end
   end
-
-  def method_in_interface?(method)
-    duck_type_methods.map(&:name).include? method.to_sym
-  end
-
-  def duck_type_methods
-    @duck_type_methods ||= (interface.instance_methods - Object.methods).map do |method_name|
-      interface.public_instance_method(method_name)
-    end
-  end
 end
+
