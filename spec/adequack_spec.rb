@@ -41,7 +41,34 @@ describe Adequack do
 
       expect { described_class.check_implementation(Animal, interface) }.
         to raise_error Adequack::InterfaceImplementationError,
-          "object does not respond to self.evolutionize method"
+          "object does not respond to 'self.evolutionize' method"
+    end
+
+    it "will not take care about private and protected methods" do
+      class Animal
+        def bark(what); end
+      end
+
+      bad_interface = Class.new do
+        def bark(what); end
+
+        class << self
+          protected
+          def c_a; end
+        end
+
+        def self.c_b; end
+        private_class_method :c_b
+
+        protected
+        def a; end
+
+        private
+        def b; end
+      end
+
+      expect { described_class.check_implementation(Animal, bad_interface) }.
+        not_to raise_error Adequack::InterfaceImplementationError
     end
 
   end

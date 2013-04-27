@@ -15,8 +15,10 @@ module Adequack
     end
 
     def validate_ducktype
-      check_method_implementation(get_methods interface.methods )
-      check_method_implementation(get_methods(interface.instance_methods), true)
+      check_method_implementation(get_methods interface.public_methods )
+      check_method_implementation(
+        get_methods(interface.public_instance_methods), true
+      )
     end
 
     def check_method_implementation(methods, instance = false)
@@ -30,7 +32,7 @@ module Adequack
         end
 
         raise InterfaceImplementationError,
-          "object does not respond to #{name} method" unless defined
+          "object does not respond to '#{name}' method" unless defined
       end
     end
 
