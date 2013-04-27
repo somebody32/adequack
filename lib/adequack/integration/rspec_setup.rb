@@ -8,7 +8,7 @@ module Adequack
   end
 end
 
-RSpec::Matchers.define :adequack_to do |*expected_duck_types|
+RSpec::Matchers.define :be_adequack_to do |*expected_duck_types|
   expected_duck_types.each do |expected_duck_type|
     match do |actual|
       Adequack.check_implementation(actual, expected_duck_type)

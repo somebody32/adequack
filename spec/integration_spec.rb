@@ -29,7 +29,7 @@ end
 
 describe Animal do
   subject { described_class }
-  it { should adequack_to AnimalInterface }
+  it { should be_adequack_to AnimalInterface }
 end
 
 class Owner
