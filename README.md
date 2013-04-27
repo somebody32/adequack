@@ -42,7 +42,7 @@ end
 
 And everything will pass.
 
-But lets imagine that a big dog food brand will come to us and pay a lot for branding:
+But let's imagine that a big dog food brand will come to us and pay a lot for branding:
 
 ```ruby
 class Dog
@@ -62,7 +62,7 @@ Finished in 0.00051 seconds
 ```
 
 You are very confident about your test suite and you decide to deploy the changes to production.  
-After that big dog food brand will take that payment away because of
+After that big dog food brand will take that payment away because of:
 
 ```ruby
 undefined method `eat_food' for #<Dog:0x99250dc>
@@ -70,7 +70,7 @@ undefined method `eat_food' for #<Dog:0x99250dc>
 
 ### Solving this with adequack
 
-Lets replay the story again but with a happy end:
+Let's replay the story again but with a happy end:
 
 ```ruby
 require 'adequack'
@@ -110,7 +110,7 @@ Use `be_adequack_to` matcher with a core class as an argument.
 And to create doubles and stubs use `adequack_double` helper. This will return a proxy object that  
 will translate all calls to the object that you'll pass first (plain `double` at the example).  
 
-Lets replay our changes again:
+Let's replay our changes again:
 ```ruby
 class Dog
   def eat_chappi
@@ -160,7 +160,7 @@ And at this time we will ger our payment fully.
 
 ## Problem 2. Method signatures
 
-But what if method will be there, but signature is changed?
+But what if method is there, but signature is changed?
 
 ```ruby
 class Dog
@@ -200,7 +200,7 @@ TODO: Write full API definition here
 
 ## Contributing
 
-This library is considered "experimental" quality. 
+This library is considered "experimental" quality.  
 Your feedback would be very welcome! Pull requests are great, but issues are good too.
 
 ## Licence 
