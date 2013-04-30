@@ -65,6 +65,7 @@ module Adequack
     end
 
     def check_method_existence(method)
+      #binding.pry
       unless method_in_interface? method
         raise InterfaceImplementationError,
           "trying to stub nonexistent method"
@@ -76,10 +77,19 @@ module Adequack
     end
 
     def duck_type_methods
-      @duck_type_methods ||= interface.instance_methods
-      @duck_type_methods.map do |method_name|
-        interface.public_instance_method(method_name)
+      @duck_type_methods ||= get_methods
+    end
+
+    def get_methods
+      cm = interface.methods.map do |m|
+        interface.public_method(m)
       end
+
+      im = interface.instance_methods.map do |m|
+        interface.public_instance_method(m)
+      end
+
+      cm + im
     end
   end
 end

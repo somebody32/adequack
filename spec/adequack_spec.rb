@@ -125,5 +125,11 @@ describe Adequack do
       }.to raise_error Adequack::InterfaceImplementationError,
         "definition of method 'bark' differs in parameters accepted."
     end
+
+    it "works with class method defs too" do
+      d = Adequack.double Class.new, interface
+      d.should_receive(:evolutionize)
+      d.evolutionize
+    end
   end
 end
