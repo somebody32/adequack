@@ -76,7 +76,7 @@ module Adequack
     end
 
     def duck_type_methods
-      @duck_type_methods ||= (interface.instance_methods - Object.methods)
+      @duck_type_methods ||= interface.instance_methods
       @duck_type_methods.map do |method_name|
         interface.public_instance_method(method_name)
       end

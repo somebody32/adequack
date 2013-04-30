@@ -7,16 +7,16 @@ module Adequack
 
     private
 
+    attr_accessor :duck, :interface
+
     def initialize(duck, interface)
       self.duck = duck
       self.interface = interface
     end
 
     def validate_ducktype
-      check_method_implementation(get_methods interface.public_methods )
-      check_method_implementation(
-        get_methods(interface.public_instance_methods), true
-      )
+      check_method_implementation interface.public_methods
+      check_method_implementation interface.public_instance_methods, true
     end
 
     def check_method_implementation(methods, instance = false)
@@ -32,12 +32,6 @@ module Adequack
         raise InterfaceImplementationError,
           "object does not respond to '#{name}' method" unless defined
       end
-    end
-
-    attr_accessor :duck, :interface
-
-    def get_methods(methods)
-      methods - Object.methods
     end
   end
 end
