@@ -65,7 +65,6 @@ module Adequack
     end
 
     def check_method_existence(method)
-      #binding.pry
       unless method_in_interface? method
         raise InterfaceImplementationError,
           "trying to stub nonexistent method"
