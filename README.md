@@ -187,6 +187,13 @@ Failures:
        definition of method 'eat_food' differs in parameters accepted.
 ```
 
+## Requirements
+
+This gem tested against Ruby 1.9.3, 2.0.0.
+
+Current version supports RSpec and Rspec Mocks only.  
+If you want minitest or any other mocking library support, please drop a line at [this issue](https://github.com/Somebody32/adequack/issues/2).
+
 ## Installation
 
 Just install the gem
