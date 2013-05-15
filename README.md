@@ -209,6 +209,20 @@ After that your rspec tests will have `be_adequack_to` matcher and `adequack_dou
 
 TODO: Write full API definition here
 
+## Alternatives
+
+There are some alternative solutions:
+
+* [Quacky](https://github.com/benmoss/quacky)
+* [Bogus](https://github.com/psyho/bogus)
+* [Rspec Fire Roles](https://github.com/cvincent/rspec-fire-roles)
+
+The main goal of Adequack is to provide as transparent solution as possible and be suitable for isolation testing.  
+Developer can pass a core object to the helper and get it back unchanged, just with a small interface checks added.
+
+This will help minimize any possible integration errors or any unsuspected behaviour.
+You should just be sure that your mocks are adequate and not get tricked by any internal magick.
+
 ## Contributing
 
 This library is considered "experimental" quality.  
