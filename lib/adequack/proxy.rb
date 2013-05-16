@@ -55,7 +55,8 @@ module Adequack
       end
 
       unless target_method.parameters.any? { |m| m.first == :rest }
-        opt_m = target_method.parameters.select { |m| m.first == :opt }
+        opt_m =
+          target_method.parameters.select { |m| [:opt, :key].include? m.first }
 
         if args.size > (req_m.size + opt_m.size)
           raise InterfaceImplementationError,
