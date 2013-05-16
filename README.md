@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/Somebody32/adequack.png?branch=master)](https://travis-ci.org/Somebody32/adequack)
 [![Dependency Status](https://gemnasium.com/Somebody32/adequack.png)](https://gemnasium.com/Somebody32/adequack)
 
-Everyone likes isolation testing. And when you do it then you stubbing and mocking a lot.  
-But the main concern when you use this approach is that you stubs will be out of sync with the
-real objects.   
+Everyone likes isolation testing. And when you do it, you are stubbing and mocking a lot.  
+But the main concern when you use this approach is that your stubs will be out of sync with the
+real objects.
 Adequack addresses this issue.
 
 ## Problem 1. Missing methods
