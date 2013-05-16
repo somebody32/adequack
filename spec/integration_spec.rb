@@ -29,7 +29,7 @@ end
 
 describe Animal do
   subject { described_class }
-  it { should be_adequack_to AnimalInterface }
+  it { should behave_like AnimalInterface }
 end
 
 class Owner
@@ -49,7 +49,7 @@ class Owner
 end
 
 describe Owner do
-  let(:animal) { adequack_double double, AnimalInterface }
+  let(:animal) { behavioral_double double, AnimalInterface }
   subject { described_class.new animal }
 
   it "tricks animal" do
