@@ -1,3 +1,9 @@
+# Version 0.0.3
+
+* Ruby 2.0 key arguments support
+
+* New descriptive helper names: `behave_like` and `behavioral_double` 
+
 # Version 0.0.2
 
 * Class methods now counted too when trying to stub them
