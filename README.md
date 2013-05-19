@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/Somebody32/adequack.png?branch=master)](https://travis-ci.org/Somebody32/adequack)
 [![Dependency Status](https://gemnasium.com/Somebody32/adequack.png)](https://gemnasium.com/Somebody32/adequack)
 
-Everyone likes isolation testing. And when you do it then you stubbing and mocking a lot.  
-But the main concern when you use this approach is that you stubs will be out of sync with the
-real objects.   
+Everyone likes isolation testing. And when you do it, you are stubbing and mocking a lot.  
+But the main concern when you use this approach is that your stubs will be out of sync with the
+real objects.
 Adequack addresses this issue.
 
 ## Problem 1. Missing methods
@@ -85,11 +85,11 @@ end
 
 describe Dog do
   subject { described_class }
-  it { should be_adequack_to DogInterface }
+  it { should behave_like DogInterface }
 end
 
 describe Owner do
-  let(:dog) { adequack_double double, DogInterface }
+  let(:dog) { behavioral_double double, DogInterface }
   subject { described_class.new dog }
   
   it "feeds animal" do
@@ -109,9 +109,9 @@ Finished in 0.00128 seconds
 ```
 
 We should validate not only our mocks, but also that our core object really responds to the interface.  
-Use `be_adequack_to` matcher with a core class as an argument.
+Use `behave_like` matcher with a core class as an argument.
 
-And to create doubles and stubs use `adequack_double` helper. This will return a proxy object that  
+And to create doubles and stubs use `behavioral_double` helper. This will return a proxy object that  
 will translate all calls to the object that you'll pass first (plain `double` at the example).  
 
 Let's replay our changes again:
@@ -130,7 +130,7 @@ F.
 Failures:
 
   1) Dog 
-     Failure/Error: it { should be_adequack_to DogInterface }
+     Failure/Error: it { should behave_like DogInterface }
      Adequack::InterfaceImplementationError:
        object does not respond to 'eat_food' method
 
@@ -203,7 +203,7 @@ gem install adequack
 
 and require it when you need it: `require 'adequack'`
 
-After that your rspec tests will have `be_adequack_to` matcher and `adequack_double` helper.
+After that your rspec tests will have `behave_like` matcher and `behavioral_double` helper.
 
 ## Usage
 
