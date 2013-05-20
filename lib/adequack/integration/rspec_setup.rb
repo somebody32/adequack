@@ -1,7 +1,7 @@
 module Adequack
   module Integration
     module RSpecHelpers
-      def behavioral_double(object, interface)
+      def behavioral_double(object, *interface)
         Adequack.double object, interface
       end
 

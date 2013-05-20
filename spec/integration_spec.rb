@@ -6,9 +6,17 @@ module AnimalInterface
   def feed(what, many = false); end
 end
 
+module IdentificationInterface
+  def identify; end
+end
+
 class Animal
   def initialize(name)
     @name = name
+  end
+
+  def identify
+    self.class.name
   end
 
   def self.evolutionize(from_what)
@@ -49,7 +57,7 @@ class Owner
 end
 
 describe Owner do
-  let(:animal) { behavioral_double double, AnimalInterface }
+  let(:animal) { behavioral_double double, AnimalInterface, IdentificationInterface }
   subject { described_class.new animal }
 
   it "tricks animal" do

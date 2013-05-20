@@ -76,7 +76,7 @@ describe Adequack do
   context "when stubbing and mocking" do
 
     let(:core) { double }
-    let(:subject) { Adequack.double core, interface }
+    let(:subject) { Adequack.double core, [interface] }
 
     it "let you stub methods that exists and return actual object" do
       core.should_receive(:stub).with({ bark: "woof" }, {})
@@ -127,7 +127,7 @@ describe Adequack do
     end
 
     it "works with class method defs too" do
-      d = Adequack.double Class.new, interface
+      d = Adequack.double Class.new, [interface]
       d.should_receive(:evolutionize)
       d.evolutionize
     end

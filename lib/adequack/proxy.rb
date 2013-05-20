@@ -1,9 +1,9 @@
 module Adequack
   class Proxy
 
-    def initialize(target, interface)
+    def initialize(target, interfaces)
       self.target = target
-      self.interface = interface
+      self.interfaces = interfaces
     end
 
     def stub(message_or_hash, opts = {}, &block)
@@ -34,7 +34,7 @@ module Adequack
 
     private
 
-    attr_accessor :target, :interface
+    attr_accessor :target, :interfaces
 
     def method_missing(name, *args, &block)
       check_interface_implementation name, args
@@ -81,12 +81,11 @@ module Adequack
     end
 
     def get_methods
-      cm = interface.methods.map do |m|
-        interface.public_method(m)
-      end
+      cm, im = [], []
 
-      im = interface.instance_methods.map do |m|
-        interface.public_instance_method(m)
+      interfaces.each do |interface|
+        cm += interface.methods.map { |m| interface.public_method(m) }
+        im += interface.instance_methods.map { |m| interface.public_instance_method(m) }
       end
 
       cm + im

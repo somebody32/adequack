@@ -10,7 +10,7 @@ module Adequack
     Core.implements duck, interface
   end
 
-  def self.double(core, interface)
-    Proxy.new core, interface
+  def self.double(core, interfaces)
+    Proxy.new core, interfaces
   end
 end
