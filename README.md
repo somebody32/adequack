@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/somebody32/adequack.png?branch=master)](https://travis-ci.org/Somebody32/adequack)
 [![Dependency Status](https://gemnasium.com/Somebody32/adequack.png)](https://gemnasium.com/Somebody32/adequack)
 
-Everyone likes isolation testing. And when you do it, you are stubbing and mocking a lot.
+Everyone likes isolation testing. And when you do it, you are stubbing and mocking a lot.  
 But the main concern when you use this approach is that your stubs will be out of sync with the
 real objects.
 Adequack addresses this issue.
@@ -23,7 +23,7 @@ class Owner
   def initialize(dog)
     @dog = dog
   end
-
+  
   def feed_animal
     @dog.eat_food
   end
@@ -36,7 +36,7 @@ and we are going to spec things out:
 describe Owner do
   let(:dog) { double }
   subject { described_class.new dog }
-
+  
   it "feeds animal" do
     dog.should_receive(:eat_food)
     subject.feed_animal
@@ -65,7 +65,7 @@ Finished in 0.00051 seconds
 1 example, 0 failures
 ```
 
-You are very confident about your test suite and you decide to deploy the changes to production.
+You are very confident about your test suite and you decide to deploy the changes to production.  
 After that big dog food brand will take that payment away because of:
 
 ```ruby
@@ -80,7 +80,7 @@ Let's replay the story again but with a happy end:
 require 'adequack'
 
 module DogInterface
-  def eat_food; end
+  def eat_food; end 
 end
 
 describe Dog do
@@ -91,7 +91,7 @@ end
 describe Owner do
   let(:dog) { behavioral_double double, DogInterface }
   subject { described_class.new dog }
-
+  
   it "feeds animal" do
     dog.should_receive(:eat_food)
     subject.feed_animal
@@ -108,11 +108,11 @@ Finished in 0.00128 seconds
 2 examples, 0 failures
 ```
 
-We should validate not only our mocks, but also that our core object really responds to the interface.
+We should validate not only our mocks, but also that our core object really responds to the interface.  
 Use `behave_like` matcher with a core class as an argument.
 
-And to create doubles and stubs use `behavioral_double` helper. This will return a proxy object that
-will translate all calls to the object that you'll pass first (plain `double` at the example).
+And to create doubles and stubs use `behavioral_double` helper. This will return a proxy object that  
+will translate all calls to the object that you'll pass first (plain `double` at the example).  
 
 Let's replay our changes again:
 ```ruby
@@ -129,19 +129,19 @@ F.
 
 Failures:
 
-  1) Dog
+  1) Dog 
      Failure/Error: it { should behave_like DogInterface }
      Adequack::InterfaceImplementationError:
        object does not respond to 'eat_food' method
 
 ```
 
-Here we gon an error at the dog spec, because our core object falls out of sync with our interface.
+Here we gon an error at the dog spec, because our core object falls out of sync with our interface.  
 But big sponsor is paying, so we will change the interface too:
 
 ```ruby
 module DogInterface
-  def eat_chappi; end
+  def eat_chappi; end 
 end
 ```
 
@@ -158,9 +158,9 @@ Failures:
 
 ```
 
-Another failure, we should change our stubs too!
+Another failure, we should change our stubs too! 
 
-And at this time we will ger our payment fully.
+And at this time we will ger our payment fully. 
 
 ## Problem 2. Method signatures
 
@@ -191,7 +191,7 @@ Failures:
 
 This gem tested against Ruby 1.9.3, 2.0.0.
 
-Current version supports RSpec and Rspec Mocks only.
+Current version supports RSpec and Rspec Mocks only.  
 If you want minitest or any other mocking library support, please drop a line at [this issue](https://github.com/Somebody32/adequack/issues/2).
 
 ## Installation
@@ -217,7 +217,7 @@ There are some alternative solutions:
 * [Bogus](https://github.com/psyho/bogus)
 * [Rspec Fire Roles](https://github.com/cvincent/rspec-fire-roles)
 
-The main goal of Adequack is to provide as transparent solution as possible and be suitable for isolation testing.
+The main goal of Adequack is to provide as transparent solution as possible and be suitable for isolation testing.  
 Developer can pass a core object to the helper and get it back unchanged, just with a small interface checks added.
 
 This will help minimize any possible integration errors or any unsuspected behaviour.
@@ -225,10 +225,10 @@ You should just be sure that your mocks are adequate and not get tricked by any 
 
 ## Contributing
 
-This library is considered "experimental" quality.
+This library is considered "experimental" quality.  
 Your feedback would be very welcome! Pull requests are great, but issues are good too.
 
-## Licence
+## Licence 
 
 Copyright (c) 2013 Ilya Zayats
 
