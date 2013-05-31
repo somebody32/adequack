@@ -5,8 +5,10 @@ require_relative "../fixtures/animal"
 require_relative "../fixtures/owner"
 
 describe Animal do
-  subject { described_class }
-  it { should behave_like Interface::AnimalInterface }
+  it do
+    described_class.should behave_like Interface::AnimalInterface,
+      Interface::Identificationable
+  end
 end
 
 describe Owner do
