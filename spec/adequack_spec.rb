@@ -28,7 +28,7 @@ describe Adequack do
       end
 
       expect { described_class.check_implementation(Animal, interface) }.
-        not_to raise_error Adequack::InterfaceImplementationError
+        not_to raise_error
     end
 
     it "fails when no class method" do
@@ -68,7 +68,7 @@ describe Adequack do
       end
 
       expect { described_class.check_implementation(Animal, bad_interface) }.
-        not_to raise_error Adequack::InterfaceImplementationError
+        not_to raise_error
     end
 
   end
