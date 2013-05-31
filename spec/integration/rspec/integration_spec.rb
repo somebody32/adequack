@@ -27,21 +27,23 @@ describe Owner do
       subject.trick_animal.should eql "barked"
     end
 
-    it "feeds animal" do
-      animal.should_receive(:feed).and_return("barked")
-      subject.enormously_feed_animal.should eql "barked"
+    it "feeds animal the right way" do
+      -> {
+        animal.should_receive(:not_right_feed).and_return("barked")
+      }.should raise_error Adequack::InterfaceImplementationError
     end
   end
 
   context "when using expect syntax" do
     it "tricks animal" do
-      animal.should_receive(:bark).and_return("barked")
+      expect(animal).to receive(:bark).and_return("barked")
       expect(subject.trick_animal).to eql "barked"
     end
 
     it "feeds animal" do
-      animal.should_receive(:feed).and_return("barked")
-      expect(subject.enormously_feed_animal).to eql "barked"
+      expect {
+        expect(animal).to receive(:not_right_feed).and_return("barked")
+      }.to raise_error Adequack::InterfaceImplementationError
     end
   end
 end
