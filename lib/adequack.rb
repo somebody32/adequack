@@ -1,6 +1,7 @@
 require "adequack/version"
 require "adequack/core"
 require "adequack/proxy"
+require "adequack/integration/rspec_proxy"
 require "adequack/integration/rspec_setup"
 
 module Adequack
@@ -11,6 +12,6 @@ module Adequack
   end
 
   def self.double(core, interfaces)
-    Proxy.new core, interfaces
+    RspecProxy.new core, interfaces
   end
 end
