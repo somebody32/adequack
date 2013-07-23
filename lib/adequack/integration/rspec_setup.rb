@@ -1,3 +1,5 @@
+require "rspec/matchers" unless RSpec::Matchers.respond_to? :define
+
 module Adequack
   module Integration
     module RSpecHelpers
