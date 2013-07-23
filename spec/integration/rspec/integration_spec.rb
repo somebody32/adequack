@@ -1,5 +1,4 @@
 require "spec_helper"
-require "pry"
 require_relative "../fixtures/interfaces/animal"
 require_relative "../fixtures/interfaces/identificationable"
 require_relative "../fixtures/animal"
