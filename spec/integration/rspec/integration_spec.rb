@@ -40,6 +40,14 @@ describe Owner do
       expect(subject.trick_animal).to eql "barked"
     end
 
+    context "works with spies" do
+      it "works when all is ok" do
+        animal.stub(:bark)
+        subject.trick_animal
+        expect(animal).to have_received(:bark)
+      end
+    end
+
     it "feeds animal" do
       expect {
         expect(animal).to receive(:not_right_feed).and_return("barked")
