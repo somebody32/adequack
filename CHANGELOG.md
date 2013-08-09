@@ -1,6 +1,8 @@
-# Version 0.0.4 (unreleased)
+# Version 0.0.4
 
 * `behavioral_double` now supports multiple interfaces
+
+* Compatibility with rspec 2.14. New `expect` syntax works too.
 
 # Version 0.0.3
 
